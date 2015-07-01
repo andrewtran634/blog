@@ -9,5 +9,5 @@ from .models import User
 def index(request):
 	return render(request, 'login/index.html')
 
-def attempt(request):
+def attempt(request, user_name, password):
 	return render(request, 'login/yes.html')

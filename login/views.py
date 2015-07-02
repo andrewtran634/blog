@@ -7,7 +7,8 @@ from django.views import generic
 from .models import User
 
 def index(request):
-	return render(request, 'login/index.html')
+	user_list = User.objects.all()
+	return render(request, 'login/index.html', {'user_list' : user_list})
 
 def attempt(request, user_name, password):
 	return render(request, 'login/yes.html')

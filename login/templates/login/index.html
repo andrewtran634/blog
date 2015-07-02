@@ -9,7 +9,7 @@
 
 </form> 
 
-<form action="{% url 'login:create' %}" method="POST">
+<form action="{% url 'login:attempt' %}" method="POST">
 	
 {% csrf_token %}
 
@@ -17,3 +17,13 @@
 	<input type="password" name="pass" placeholder="password"/>
 	<input type="submit" value="create"/>
 </form>
+
+{% if user_list %}
+    <ul>
+    {% for user in user_list %}
+	<li><a href="{% url 'post:index' user.id %}">{{ user.id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No users made.</p>
+{% endif %}

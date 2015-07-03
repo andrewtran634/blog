@@ -21,7 +21,11 @@
 {% if user_list %}
     <ul>
     {% for user in user_list %}
-	<li><a href="{% url 'post:index' user.id %}">{{ user.id }}</a></li>
+	<li>
+		<form action = "{% url 'post:index' user.id %}">
+			<input type="submit"/> {{user}}
+		</form>
+	</li>
     {% endfor %}
     </ul>
 {% else %}

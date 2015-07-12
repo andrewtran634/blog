@@ -1,1 +1,15 @@
-hey
+{% if user %}
+    <ul>
+    {% for post in user.post_set.all %}
+	<li>
+		<div>
+			{% post.subject %}
+			<br>
+			{% post.text %}
+		</div>
+	</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts made.</p>
+{% endif %}

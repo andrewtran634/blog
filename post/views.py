@@ -6,6 +6,6 @@ from django.views import generic
 
 from login.models import User
 
-def index(request, user_id):
-	user = get_object_or_404(Question, pk=user_id)
-	render(request, 'post/index.html', {'user' : user})
+def what(request, user_id):
+	u = get_object_or_404(User, pk=user_id)
+	return render(request, 'post/index.html', {'user' : u})

@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 
 from .models import User
-from post.views import what
 
 def index(request):
 	user_list = User.objects.all()
@@ -13,7 +12,7 @@ def index(request):
 
 def go(request, user_id):
 	u = get_object_or_404(User, pk=user_id)
-	#return HttpResponseRedirect('/post/')
-	return render(request, 'login/attempt.html', {'name' : u.username})
+	return HttpResponseRedirect(reverse(post.views.what, args=u.id))
+	#return render(request, 'login/attempt.html', {'name' : u.username})
 	#return render(request, '/post/', {})
 

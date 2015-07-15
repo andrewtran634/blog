@@ -1,0 +1,7 @@
+<h1>Make new post, {{ user.username }}!</h1>
+{% csrf token %}
+<form action="{% url 'post:submit' user.id %}" method="POST">
+	<input type="text" name="subject">
+	<input type="text" name="body">
+	<input type="submit">	
+</form>	

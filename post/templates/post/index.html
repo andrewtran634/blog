@@ -1,11 +1,12 @@
 {% if user %}
+	<a href = "{% url 'post:new' user.id %}"></a>
     <ul>
     {% for post in user.post_set.all %}
 	<li>
 		<div>
-			{% post.subject %}
+			{{ post.subject }}
 			<br>
-			{% post.text %}
+			{{ post.text }}
 		</div>
 	</li>
     {% endfor %}

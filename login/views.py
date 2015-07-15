@@ -9,10 +9,9 @@ from .models import User
 def index(request):
 	user_list = User.objects.all()
 	return render(request, 'login/index.html', {'user_list' : user_list})
-"""
+
 def go(request, user_id):
 	u = get_object_or_404(User, pk=user_id)
-	return HttpResponseRedirect(reverse(post.views.what, args=u.id))
-	#return render(request, 'login/attempt.html', {'name' : u.username})
+	#return HttpResponseRedirect(reverse('post:test'))
+	return render(request, 'login/attempt.html', {'name' : u.username})
 	#return render(request, '/post/', {})
-"""

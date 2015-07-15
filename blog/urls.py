@@ -22,5 +22,5 @@ urlpatterns = [
 	url(r'^login/', include('login.urls', namespace='login')),
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^', include(blog.site.urls)),
-    url(r'^post/', include('post.urls', namespace='post')),
+    url(r'^', include('post.urls', namespace='post')),
 ]

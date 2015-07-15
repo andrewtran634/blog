@@ -3,8 +3,10 @@ from django.template import RequestContext, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
+from django.utils import timezone
 
 from login.models import User
+from .models import Post
 #from login.views import go, 
 
 def main(request, user_id):
@@ -22,5 +24,10 @@ def new(request, user_id):
 
 def submit(request, user_id):
 	u = get_object_or_404(User, pk=user_id)
-	new_post = Post(username=u.username, subject=request.POST['subject'],text=request.POST['body'])
-	return render(request, 'post/index.html', {'user' : u})
+	new_post = Post(author=u, subject=request.POST['subject'],text=request.POST['body'],date=timezone.now())
+	new_post.save()
+	return HttpResponseRedirect(reverse('post:test'))
+def delete(request, post_id):
+	dpost=get_object_or_404(Post, pk=post_id)
+	dpost.delete()
+	return HttpResponseRedirect(reverse('post:test'))

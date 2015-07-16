@@ -12,6 +12,11 @@
 			{% csrf_token %}
 			<input type="submit" value="delete">
 		</form>
+
+		<form action = "{% url 'post:edit' post.id %}" method='POST'>
+			{% csrf_token %}
+			<input type="submit" value="edit">
+		</form>
 	</li>
     {% endfor %}
     </ul>

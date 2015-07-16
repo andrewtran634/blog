@@ -27,7 +27,19 @@ def submit(request, user_id):
 	new_post = Post(author=u, subject=request.POST['subject'],text=request.POST['body'],date=timezone.now())
 	new_post.save()
 	return HttpResponseRedirect(reverse('post:test'))
+
+def editsubmit(request, post_id):
+	p = get_object_or_404(Post, pk=post_id)
+	p.text=request.POST['body']
+	p.date=timezone.now()
+	p.save()
+	return HttpResponseRedirect(reverse('post:test'))
+
 def delete(request, post_id):
 	dpost=get_object_or_404(Post, pk=post_id)
 	dpost.delete()
 	return HttpResponseRedirect(reverse('post:test'))
+
+def edit(request, post_id):
+	p=get_object_or_404(Post, pk=post_id)
+	return render(request, 'post/edit.html', {'post' : p})

@@ -1,0 +1,10 @@
+{% if post %}
+	<h1>Edit the post</h1>
+	<form action ="{% url 'post:editsubmit' post.id %}" method="POST">
+		{% csrf_token %}
+		<input type="text" value="{{post.text}}" name="body">
+		<input type="submit" value="edit">
+	</form>
+{% else %}
+	<p>some type of error, man</p>
+{% endif %}

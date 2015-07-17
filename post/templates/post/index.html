@@ -1,5 +1,7 @@
 {% if user %}
-	<a href = "{% url 'post:new' user.id %}">new</a>
+	{% if logged %}
+		<a href = "{% url 'post:new' user.id %}">new</a>
+	{% endif %}
     <ul>
     {% for post in user.post_set.all %}
 	<li>
@@ -8,15 +10,17 @@
 			<br>
 			{{ post.text }}
 		</div>
-		<form action = "{% url 'post:delete' post.id %}" method='POST'>
-			{% csrf_token %}
-			<input type="submit" value="delete">
-		</form>
+		{% if logged %}
+			<form action = "{% url 'post:delete' post.id %}" method='POST'>
+				{% csrf_token %}
+				<input type="submit" value="delete">
+			</form>
 
-		<form action = "{% url 'post:edit' post.id %}" method='POST'>
-			{% csrf_token %}
-			<input type="submit" value="edit">
-		</form>
+			<form action = "{% url 'post:edit' post.id %}" method='POST'>
+				{% csrf_token %}
+				<input type="submit" value="edit">
+			</form>
+		{% endif %}
 	</li>
     {% endfor %}
     </ul>

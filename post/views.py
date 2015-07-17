@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template import RequestContext, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -8,9 +8,11 @@ from django.utils import timezone
 from login.models import User
 from .models import Post
 #from login.views import go, 
+def leave(request):
+	return redirect('login:index')
 
-def main(request, user_id):
-	u = get_object_or_404(User, pk=user_id)
+def main(request, username):
+	u = get_object_or_404(User, username=username)
 	return render(request, 'post/index.html', {'user' : u})
 
 def test(request):
@@ -33,7 +35,7 @@ def editsubmit(request, post_id):
 	p.text=request.POST['body']
 	p.date=timezone.now()
 	p.save()
-	return HttpResponseRedirect(reverse('post:test'))
+	return HttpResponseRedirect(reverse('post:main'))
 
 def delete(request, post_id):
 	dpost=get_object_or_404(Post, pk=post_id)

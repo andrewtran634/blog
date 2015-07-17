@@ -1,6 +1,5 @@
 <h1>Welcome!</h1>
 
-
 {% if user_list %}
     <ul>
     {% for user in user_list %}
@@ -13,4 +12,11 @@
     </ul>
 {% else %}
     <p>No users made.</p>
+
+{% if log %}
+{{ log }}
+{% endif %}
+{% if reg %}
+{{ reg }}
+{% endif %}
 {% endif %}

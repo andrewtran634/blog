@@ -5,10 +5,13 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 
 from .models import User
+from .forms import LoginForm, RegForm
 
 def index(request):
 	user_list = User.objects.all()
-	return render(request, 'login/index.html', {'user_list' : user_list})
+	log = LoginForm()
+	reg = RegForm()
+	return render(request, 'login/index.html', {'log' : log})#, {'reg' : reg}) 
 
 def go(request, user_id):
 	u = get_object_or_404(User, pk=user_id)

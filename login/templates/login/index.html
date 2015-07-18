@@ -10,13 +10,18 @@
 	</li>
     {% endfor %}
     </ul>
-{% else %}
-    <p>No users made.</p>
+{% endif %}
+
 
 {% if log %}
-{{ log }}
+	<form action = "{% url 'login:verify' %}" method="GET">
+		<input type = "submit" value = "login">
+		{{ log }}
+	</form>
 {% endif %}
+<br>
+<br>
+<br>
 {% if reg %}
 {{ reg }}
-{% endif %}
 {% endif %}

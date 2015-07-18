@@ -11,7 +11,7 @@ def index(request):
 	user_list = User.objects.all()
 	log = LoginForm()
 	reg = RegForm()
-	return render(request, 'login/index.html', {'log' : log})#, {'reg' : reg}) 
+	return render(request, 'login/index.html', {'log' : log, 'reg' : reg}) 
 
 def go(request, user_id):
 	u = get_object_or_404(User, pk=user_id)

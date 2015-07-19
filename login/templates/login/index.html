@@ -14,14 +14,24 @@
 
 
 {% if log %}
-	<form action = "{% url 'login:verify' %}" method="GET">
-		<input type = "submit" value = "login">
+	{% if badlog %}
+		{{ badlog }}
+	{% endif %}
+	<form action = "{% url 'login:attempt' %}" method="GET">
 		{{ log }}
+		<input type = "submit" value = "login">		
 	</form>
+
 {% endif %}
 <br>
 <br>
 <br>
 {% if reg %}
-{{ reg }}
+	{% if badreg %}
+		{{ badreg }}
+	{% endif %}
+	<form action = "{% url 'login:attempt' %}" method="POST">
+		{{ reg }}
+		<input type="submit" value="register">
+	</form>
 {% endif %}

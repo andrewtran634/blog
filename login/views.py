@@ -6,6 +6,7 @@ from django.views import generic
 
 from .models import User
 from .forms import LoginForm, RegForm
+from django import forms
 
 def index(request):
 	user_list = User.objects.all()
@@ -23,14 +24,12 @@ def attempt(request):
 	if request.method == 'GET':
 		attempt = LoginForm(request.GET)
 		if attempt.is_valid():
-			try:
-				test = User.objects.get(username=attempt.cleaned_data['user_name'])
-			except User.DoesNotExist:
+			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
+			if user is not None
 				badlog = "user doesn't exist"
 				#return render(request, 'login/index.html', {'badlog' : badlog})
 				#return redirect('login:index')
-				raise ValidationError()
-			return redirect(reverse('post:main', args=(test.username,)))
+				raise forms.ValidationError(_('what'), code='what')
 		else:
 			badlog = "Not all fields used"
 			return redirect('login:index', badlog)

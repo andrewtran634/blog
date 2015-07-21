@@ -22,14 +22,14 @@ def test(request):
 	#return render(request, 'login/index.html')
 
 def new(request, username):
-	u = get_object_or_404(User, pk=username)
+	u = get_object_or_404(User, username=username)
 	return render(request, 'post/new.html', {'user' : u})
 
 def submit(request, username):
-	u = get_object_or_404(User, pk=username)
+	u = get_object_or_404(User, username=username)
 	new_post = Post(author=u, subject=request.POST['subject'],text=request.POST['body'],date=timezone.now())
 	new_post.save()
-	return HttpResponseRedirect(reverse('post:main', args=(username)))
+	return HttpResponseRedirect(reverse('post:main', args=(new_post.author,)))
 
 def editsubmit(request, post_id):
 	p = get_object_or_404(Post, pk=post_id)

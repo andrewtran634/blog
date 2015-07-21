@@ -3,7 +3,8 @@ from django.template import RequestContext, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
-
+from django.contrib.auth import logout
+from django.contrib import auth
 from .models import User
 from .forms import LoginForm, RegForm
 from django import forms
@@ -55,6 +56,10 @@ def attempt(request):
 			badreg = "Not all fields used"
 			return render(request, 'login/index.html', {'badreg' : badreg})
 #def register(request):
+def done(request, username):
+	u = get_object_or_404(User, username=username)
+	auth.logout(request)
+	return redirect(reverse('login:index'))
 
 
 

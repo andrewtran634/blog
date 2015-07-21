@@ -1,6 +1,9 @@
 {% if user %}
 	{% if user.is_authenticated %}
 		<a href = "{% url 'post:new' user.username %}">new</a>
+		<a href = "{% url 'login:done' user.username %}">logout</a>
+	{% else %}
+		<a href = "{% url 'login:index' %}">login</a>
 	{% endif %}
     <ul>
     {% for post in user.post_set.all %}

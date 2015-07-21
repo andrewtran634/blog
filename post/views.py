@@ -18,29 +18,30 @@ def main(request, username):
 def test(request):
 	u = get_object_or_404(User, pk=1)
 	return render(request, 'post/index.html', {'user' : u})
+
 	#return render(request, 'login/index.html')
 
-def new(request, user_id):
-	u = get_object_or_404(User, pk=user_id)
+def new(request, username):
+	u = get_object_or_404(User, pk=username)
 	return render(request, 'post/new.html', {'user' : u})
 
-def submit(request, user_id):
-	u = get_object_or_404(User, pk=user_id)
+def submit(request, username):
+	u = get_object_or_404(User, pk=username)
 	new_post = Post(author=u, subject=request.POST['subject'],text=request.POST['body'],date=timezone.now())
 	new_post.save()
-	return HttpResponseRedirect(reverse('post:test'))
+	return HttpResponseRedirect(reverse('post:main', args=(username)))
 
 def editsubmit(request, post_id):
 	p = get_object_or_404(Post, pk=post_id)
 	p.text=request.POST['body']
 	p.date=timezone.now()
 	p.save()
-	return HttpResponseRedirect(reverse('post:main'))
+	return HttpResponseRedirect(reverse('post:main', args=(p.author,)))
 
 def delete(request, post_id):
 	dpost=get_object_or_404(Post, pk=post_id)
 	dpost.delete()
-	return HttpResponseRedirect(reverse('post:test'))
+	return HttpResponseRedirect(reverse('post:main', args=(dpost.author,)))
 
 def edit(request, post_id):
 	p=get_object_or_404(Post, pk=post_id)

@@ -25,7 +25,7 @@ def attempt(request):
 		attempt = LoginForm(request.GET)
 		if attempt.is_valid():
 			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
-			if user is not None
+			if user:
 				badlog = "user doesn't exist"
 				#return render(request, 'login/index.html', {'badlog' : badlog})
 				#return redirect('login:index')

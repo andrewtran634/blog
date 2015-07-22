@@ -1,17 +1,35 @@
+<head>
+	<link rel="stylesheet" type="text/css" href="static/poststyle.css">
+</head>
+
 {% if user %}
-	{% if user.is_authenticated %}
-		<a href = "{% url 'post:new' user.username %}">new</a>
-		<a href = "{% url 'login:done' user.username %}">logout</a>
-	{% else %}
-		<a href = "{% url 'login:index' %}">login</a>
-	{% endif %}
+	<div id = "nav">
+		{% if user.is_authenticated %}
+			<div id = "new">
+				<a href = "{% url 'post:new' user.username %}">new</a>
+			</div>
+
+			<div id = "logout">
+				<a href = "{% url 'login:done' user.username %}">logout</a>
+			</div>
+
+		{% else %}
+			<div id = "login">
+				<a href = "{% url 'login:index' %}">login</a>
+			</div>
+		{% endif %}
+	</div>
     <ul>
     {% for post in user.post_set.all %}
 	<li>
-		<div>
-			{{ post.subject }}
-			<br>
-			{{ post.text }}
+		<div id = "post">
+			<div id = "sub">
+				{{ post.subject }}
+			</div>
+
+			<div id = "text">
+				{{ post.text }}
+			</div>
 		</div>
 		{% if user.is_authenticated %}
 			<form action = "{% url 'post:delete' post.id %}" method='POST'>
@@ -28,5 +46,5 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>No posts made.</p>
+    <p>No User lol made.</p>
 {% endif %}

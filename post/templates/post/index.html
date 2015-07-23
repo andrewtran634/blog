@@ -2,7 +2,7 @@
 	<link rel="stylesheet" type="text/css" href="static/poststyle.css">
 </head>
 
-{% if user %}
+{% if user and posts%}
 	<div id = "nav">
 		{% if user.is_authenticated %}
 			<div id = "new">
@@ -20,7 +20,7 @@
 		{% endif %}
 	</div>
     <ul>
-    {% for post in user.post_set.all %}
+    {% for post in posts %}
 	<li>
 		<div id = "post">
 			<div id = "sub">

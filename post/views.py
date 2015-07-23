@@ -13,7 +13,9 @@ def leave(request):
 
 def main(request, username):
 	u = get_object_or_404(User, username=username)
-	return render(request, 'post/index.html', {'user' : u})
+	p = u.post_set.all().order_by('-id')
+	#p = p.order_by('date')
+	return render(request, 'post/index.html', {'user' : u, 'posts' : p})
 
 def test(request):
 	u = get_object_or_404(User, pk=1)

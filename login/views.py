@@ -3,7 +3,7 @@ from django.template import RequestContext, loader
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from django.contrib import auth
 from .models import User
 from .forms import LoginForm, RegForm
@@ -24,7 +24,10 @@ def attempt(request):
 		attempt = LoginForm(request.GET)
 		if attempt.is_valid():
 			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
-			if not user:
+			if user is not None:
+				login(request, user)
+				return redirect('post:main', args=(user,))
+			else:
 				redirect(reverse('login:lerror'))
 		else:
 			#"Not all fields used"
@@ -39,6 +42,8 @@ def attempt(request):
 		else:
 			new_user = User.objects.create_user(username=request.POST['user_name'],password=request.POST['password'])
 			new_user.save()
+			check = authenticate(username=new_user.username, password=new_user.password)
+			login(request, check)
 			return redirect(reverse('post:main', args=(new_user,)))
 		#else:
 		#	return redirect(reverse('login:aerror'))

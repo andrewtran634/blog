@@ -1,5 +1,8 @@
 <h1>Welcome!</h1>
 
+{% block error %}
+{% endblock %}
+
 {% if user_list %}
     <ul>
     {% for user in user_list %}
@@ -12,26 +15,28 @@
     </ul>
 {% endif %}
 
+{% block forms %}
+	{% if log %}
+		{% if badlog %}
+			{{ badlog }}
+		{% endif %}
+		<form action = "{% url 'login:attempt' %}" method="GET">
+			{{ log }}
+			<input type = "submit" value = "login">		
+		</form>
 
-{% if log %}
-	{% if badlog %}
-		{{ badlog }}
 	{% endif %}
-	<form action = "{% url 'login:attempt' %}" method="GET">
-		{{ log }}
-		<input type = "submit" value = "login">		
-	</form>
-
-{% endif %}
-<br>
-<br>
-<br>
-{% if reg %}
-	{% if badreg %}
-		{{ badreg }}
+	<br>
+	<br>
+	<br>
+	{% if reg %}
+		{% if badreg %}
+			{{ badreg }}
+		{% endif %}
+		<form action = "{% url 'login:attempt' %}" method="POST">
+			{% csrf_token %}
+			{{ reg }}
+			<input type="submit" value="register">
+		</form>
 	{% endif %}
-	<form action = "{% url 'login:attempt' %}" method="POST">
-		{{ reg }}
-		<input type="submit" value="register">
-	</form>
-{% endif %}
+{% endblock %}

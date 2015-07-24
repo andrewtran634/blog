@@ -3,7 +3,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static "css/poststyle.css" %}">
 </head>
 
-{% if user and posts%}
+{% if user %}
 	<div id = "nav">
 		{% if user.is_authenticated %}
 			<div id = "new">

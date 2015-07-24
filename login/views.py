@@ -30,12 +30,24 @@ def attempt(request):
 			#"Not all fields used"
 			return redirect('login:lerror')
 
+
+	if request.method == 'POST':
+		attempt = RegForm(request.POST)
+				#check passwords match
+		if request.POST['password'] != request.POST['password2']:
+			return redirect(reverse('login:rerror'))
+		else:
+			new_user = User.objects.create_user(username=request.POST['user_name'],password=request.POST['password'])
+			new_user.save()
+			return redirect(reverse('post:main', args=(new_user,)))
+		#else:
+		#	return redirect(reverse('login:aerror'))
+"""
 	if request.method == 'POST':
 		attempt = RegForm(request.POST)
 		if attempt.is_valid():
-			try:
-				test = User.objects.get(user_name.cleaned_data['username'])
-			except User.DoesNotExist:
+			test = User.objects.get(user_name.cleaned_data['username'])
+			if User.DoesNotExist:
 				#check passwords match
 				if attempt.cleaned_data['password'] != attempt.cleand_data['password2']:
 					return redirect(reverse('login:rerror'))
@@ -43,9 +55,11 @@ def attempt(request):
 					new_user = User(username=attempt.cleand_data['username'],password=attempt.cleand_data['password'])
 					new_user.save()
 					return redirect(reverse('post:main', args=(new_user,)))
-			return redirect(reverse('login:aerror'))
+			else:
+				return redirect(reverse('login:aerror'))
 		else:
-			return redirect(reverse('login:aerror'))
+			return redirect(reverse('login:aerror'))"""
+
 #def register(request):
 def done(request, username):
 	u = get_object_or_404(User, username=username)
@@ -55,7 +69,17 @@ def done(request, username):
 	return redirect(reverse('login:index'))
 
 def lerror(request):
-	render(request, 'login/lerror.html')
+	log = LoginForm()
+	reg = RegForm()
+	return render(request, 'login/lerror.html', {'log' : log, 'reg' : reg})
+def rerror(request):
+	log = LoginForm()
+	reg = RegForm()
+	return render(request, 'login/rerror.html', {'log' : log, 'reg' : reg})
+def aerror(request):
+	log = LoginForm()
+	reg = RegForm()
+	return render(request, 'login/aerror.html', {'log' : log, 'reg' : reg})
 
 
 

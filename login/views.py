@@ -13,8 +13,6 @@ def index(request):
 	user_list = User.objects.all()
 	log = LoginForm()
 	reg = RegForm()
-	badlog=''
-	badreg=''
 	return render(request, 'login/index.html', {'log' : log, 'reg' : reg}) 
 
 def go(request, user_id):
@@ -26,14 +24,11 @@ def attempt(request):
 		attempt = LoginForm(request.GET)
 		if attempt.is_valid():
 			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
-			if user:
-				badlog = "user doesn't exist"
-				#return render(request, 'login/index.html', {'badlog' : badlog})
-				#return redirect('login:index')
-				raise forms.ValidationError(_('what'), code='what')
+			if not user:
+				redirect(reverse('login:lerror'))
 		else:
-			badlog = "Not all fields used"
-			return redirect('login:index', badlog)
+			#"Not all fields used"
+			return redirect('login:lerror')
 
 	if request.method == 'POST':
 		attempt = RegForm(request.POST)
@@ -43,18 +38,14 @@ def attempt(request):
 			except User.DoesNotExist:
 				#check passwords match
 				if attempt.cleaned_data['password'] != attempt.cleand_data['password2']:
-					badreg = "passwords do not match"
-					return render(request, 'login/index.html', {'badreg' : badreg})
+					return redirect(reverse('login:rerror'))
 				else:
 					new_user = User(username=attempt.cleand_data['username'],password=attempt.cleand_data['password'])
 					new_user.save()
-					#return HttpResponseRedirect(reverse('login:register'))
-
-			badreg = "username already taken"
-			return render(request, 'login/index.html', {'badreg' : badreg})
+					return redirect(reverse('post:main', args=(new_user,)))
+			return redirect(reverse('login:aerror'))
 		else:
-			badreg = "Not all fields used"
-			return render(request, 'login/index.html', {'badreg' : badreg})
+			return redirect(reverse('login:aerror'))
 #def register(request):
 def done(request, username):
 	u = get_object_or_404(User, username=username)
@@ -62,6 +53,9 @@ def done(request, username):
 	u.is_authenticated = False
 	u.save()
 	return redirect(reverse('login:index'))
+
+def lerror(request):
+	render(request, 'login/lerror.html')
 
 
 

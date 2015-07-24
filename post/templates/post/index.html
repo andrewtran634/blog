@@ -1,5 +1,6 @@
+{% load staticfiles %}
 <head>
-	<link rel="stylesheet" type="text/css" href="static/poststyle.css">
+	<link rel="stylesheet" type="text/css" href="{% static "css/poststyle.css" %}">
 </head>
 
 {% if user and posts%}
@@ -25,6 +26,10 @@
 		<div id = "post">
 			<div id = "sub">
 				{{ post.subject }}
+			</div>
+
+			<div id = "date">
+				{{ post.date }}
 			</div>
 
 			<div id = "text">

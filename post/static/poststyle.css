@@ -1,3 +1,12 @@
 #nav {
-	background-color: blue;
+	/*background-color: rgb(245, 245, 190);*/
+	background-color: #F5F5BE;
+	display: inline-block;
+}
+#nav div {
+	display: inline-block;
+	float: right;
+}
+li {
+	list-style: none;
 }

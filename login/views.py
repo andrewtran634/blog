@@ -43,7 +43,9 @@ def attempt(request):
 			new_user = User.objects.create_user(username=request.POST['user_name'],password=request.POST['password'])
 			new_user.save()
 			check = authenticate(username=new_user.username, password=new_user.password)
-			login(request, check)
+			if check is not None:
+				if check.is_active:
+					login(request, check)
 			return redirect(reverse('post:main', args=(new_user,)))
 		#else:
 		#	return redirect(reverse('login:aerror'))

@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static "css/poststyle.css" %}">
+	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 </head>
 
 {% if logged %}
@@ -25,37 +26,40 @@
 		</div>
 		{% endif %}
 	</div>
-</div>
-    <ul>
-    {% for post in posts %}
-	<li>
-		<div id = "post">
-			<div id = "sub">
-				{{ post.subject }}
-			</div>
+	<div id = "postlist">
+		<ul>
+		{% for post in posts %}
+		<li id = "post">
+			<div id = "meat">
+				<div id = "sub">
+					{{ post.subject }}
+				</div>
 
-			<div id = "date">
-				{{ post.date }}
-			</div>
+				<div id = "date">
+					{{ post.date }}
+				</div>
 
-			<div id = "text">
-				{{ post.text }}
+				<div id = "text">
+					{{ post.text }}
+				</div>
 			</div>
-		</div>
-		{% if logged %}
-			<form action = "{% url 'post:delete' post.id %}" method='POST'>
-				{% csrf_token %}
-				<input type="submit" value="delete">
-			</form>
+			{% if logged %}
+			<div id = "formz">
+				<form action = "{% url 'post:delete' post.id %}" method='POST'>
+					{% csrf_token %}
+					<input type="submit" value="delete" id = "delete">
+				</form>
 
-			<form action = "{% url 'post:edit' post.id %}" method='POST'>
-				{% csrf_token %}
-				<input type="submit" value="edit">
-			</form>
-		{% endif %}
-	</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No User lol made.</p>
-{% endif %}
+				<form action = "{% url 'post:edit' post.id %}" method='POST'>
+					{% csrf_token %}
+					<input type="submit" value="edit" id = "edit">
+				</form>
+			</div>
+			{% endif %}
+		</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>No User lol made.</p>
+	{% endif %}
+	</div>

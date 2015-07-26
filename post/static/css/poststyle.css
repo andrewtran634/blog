@@ -1,24 +1,65 @@
 * {
 	margin: 0;
 	padding: 0;
+	color: 
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+a:hover {
+	color: #F5F5BE;
+}
+a:visited {
+	color: white;
+	text-decoration: none;
+}
+body {
+	font-family: Lato;
+}
+#postlist {
+	color: rgb(0, 92, 0);
+	rgb(25, 117, 117)
 }
 #nav {
 	/*background-color: rgb(245, 245, 190);*/
-	background-color: #F5F5BE;
+	background-color: rgb(204, 178, 153);
 	display: inline-block;
 	width: 100%;
 }
 #nav div {
 	display: inline-block;
-	float: right;
 	padding: 20px;
 }
 #transfer{
 	float: right;
 }
 #logo {
-	float: left;
 }
+#postlist {
+	background-color: #F5F5BE;
+}
+#post {
+	margin: 20px;
+	margin-left: 10%;
+}
+#post div {
+	display: inline-block;
+}
+#sub {
+	color: rgb(25, 117, 117);
+	font-size: 40px;
+}
+#date {
+	font-size: 20px;
+	color: rgb(25, 117, 117);
+	margin-left: 5%;
+}
+#text {
+	margin-left: 10%;
+}
+
 li {
 	list-style: none;
 }
+

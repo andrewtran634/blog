@@ -1,3 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+}
 #nav {
-	background-color: blue;
+	/*background-color: rgb(245, 245, 190);*/
+	background-color: #F5F5BE;
+	display: inline-block;
+	width: 100%;
+}
+#nav div {
+	display: inline-block;
+	float: right;
+	padding: 20px;
+}
+#transfer{
+	float: right;
+}
+#logo {
+	float: left;
+}
+li {
+	list-style: none;
 }

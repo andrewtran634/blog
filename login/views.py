@@ -19,9 +19,9 @@ def go(request, user_id):
 	u = get_object_or_404(User, pk=user_id)
 	#return HttpResponseRedirect(reverse('post:test'))
 	return render(request, 'login/attempt.html', {'name' : u.username})
-def attempt(request):
-	if request.method == 'GET':
-		attempt = LoginForm(request.GET)
+def lattempt(request):
+	if request.method == 'POST':
+		attempt = LoginForm(request.POST)
 		if attempt.is_valid():
 			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
 			if user is not None:
@@ -33,20 +33,24 @@ def attempt(request):
 			#"Not all fields used"
 			return redirect('login:lerror')
 
-
+def rattempt(request):
 	if request.method == 'POST':
 		attempt = RegForm(request.POST)
 				#check passwords match
 		if request.POST['password'] != request.POST['password2']:
 			return redirect(reverse('login:rerror'))
 		else:
-			new_user = User.objects.create_user(username=request.POST['user_name'],password=request.POST['password'])
-			new_user.save()
-			check = authenticate(username=new_user.username, password=new_user.password)
-			if check is not None:
-				if check.is_active:
-					login(request, check)
-			return redirect(reverse('post:main', args=(new_user,)))
+			if attempt.is_valid():
+			#new_user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
+				new_user = attempt.save()
+				#new_user.save()
+				new_user.set_password(new_user.password)
+				new_user.save()
+				check = authenticate(username=new_user.username, password=new_user.password)
+				if check is not None:
+					if check.is_active:
+						login(request, check)
+				return redirect(reverse('post:main', args=(new_user,)))
 		#else:
 		#	return redirect(reverse('login:aerror'))
 """

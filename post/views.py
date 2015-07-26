@@ -7,6 +7,8 @@ from django.utils import timezone
 
 from login.models import User
 from .models import Post
+from django.contrib.auth.decorators import login_required
+
 #from login.views import go, 
 def leave(request):
 	return redirect('login:index')
@@ -15,24 +17,29 @@ def main(request, username):
 	u = get_object_or_404(User, username=username)
 	p = u.post_set.all().order_by('-id')
 	#p = p.order_by('date')
-	return render(request, 'post/index.html', {'user' : u, 'posts' : p})
+	if u.is_authenticated():
+		return render(request, 'post/index.html', {'user' : u, 'posts' : p, 'logged' : 'yes'})
+	else :
+		return render(request, 'post/index.html', {'user' : u, 'posts' : p})
 
 def test(request):
 	u = get_object_or_404(User, pk=1)
 	return render(request, 'post/index.html', {'user' : u})
 
 	#return render(request, 'login/index.html')
-
+#@login_required
 def new(request, username):
 	u = get_object_or_404(User, username=username)
 	return render(request, 'post/new.html', {'user' : u})
 
+#@login_required
 def submit(request, username):
 	u = get_object_or_404(User, username=username)
 	new_post = Post(author=u, subject=request.POST['subject'],text=request.POST['body'],date=timezone.now())
 	new_post.save()
 	return HttpResponseRedirect(reverse('post:main', args=(new_post.author,)))
 
+#@login_required
 def editsubmit(request, post_id):
 	p = get_object_or_404(Post, pk=post_id)
 	p.text=request.POST['body']
@@ -40,11 +47,13 @@ def editsubmit(request, post_id):
 	p.save()
 	return HttpResponseRedirect(reverse('post:main', args=(p.author,)))
 
+#@login_required
 def delete(request, post_id):
 	dpost=get_object_or_404(Post, pk=post_id)
 	dpost.delete()
 	return HttpResponseRedirect(reverse('post:main', args=(dpost.author,)))
 
+#@login_required
 def edit(request, post_id):
 	p=get_object_or_404(Post, pk=post_id)
 	return render(request, 'post/edit.html', {'post' : p})

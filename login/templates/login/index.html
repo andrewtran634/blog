@@ -20,7 +20,8 @@
 		{% if badlog %}
 			{{ badlog }}
 		{% endif %}
-		<form action = "{% url 'login:attempt' %}" method="GET">
+		<form action = "{% url 'login:lattempt' %}" method="POST">
+			{% csrf_token %}
 			{{ log }}
 			<input type = "submit" value = "login">		
 		</form>
@@ -33,7 +34,7 @@
 		{% if badreg %}
 			{{ badreg }}
 		{% endif %}
-		<form action = "{% url 'login:attempt' %}" method="POST">
+		<form action = "{% url 'login:rattempt' %}" method="POST">
 			{% csrf_token %}
 			{{ reg }}
 			<input type="submit" value="register">

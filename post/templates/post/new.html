@@ -1,7 +1,10 @@
-{% load staticfiles %}
+<!--{% load staticfiles %}-->
 <head>
-	<link rel="stylesheet" type="text/css" href="{% static "css/newedditstyle.css" %}">
+	<link rel="stylesheet" type="text/css" href="newedditstyle.css">
+
+	<!--<link rel="stylesheet" type="text/css" href="{% static "css/newedditstyle.css" %}">-->
 	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="neweditstyle.css">
 </head>
 <body>
 	<div id = "act">
@@ -9,7 +12,7 @@
 	</div>
 	
 	<form action="{% url 'post:submit' user.username %}" method="POST">
-	{% csrf_token %}
+	<!--{% csrf_token %}-->
 		
 		<div id = "sub">
 			<input type="text" name="subject" id = "subfield">
@@ -20,7 +23,7 @@
 		</div>
 		
 		<div id = "post">
-			<input type="submit" value = "Post" id = "postfield">	
+			<input type="submit" value = "Post" id = "postfield" class = "font">	
 		</div>
 		
 	</form>	

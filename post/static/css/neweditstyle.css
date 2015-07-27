@@ -13,4 +13,16 @@ body {
 }
 form div {
 	display: block;
+	padding: 10px;
+}
+
+#subfield {
+	height: 10%;
+	width: 50%;
+}
+#textfield {
+	height: 60%;
+	width: 50%;
+}
+#postfield {
 }

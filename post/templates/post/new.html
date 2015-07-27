@@ -1,7 +1,27 @@
-<h1>Make new post, {{ user.username }}!</h1>
-<form action="{% url 'post:submit' user.username %}" method="POST">
-{% csrf_token %}
-	<input type="text" name="subject">
-	<input type="text" name="body">
-	<input type="submit">	
-</form>	
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/newedditstyle.css" %}">
+	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id = "act">
+		<h1>New Post</h1>
+	</div>
+	
+	<form action="{% url 'post:submit' user.username %}" method="POST">
+	{% csrf_token %}
+		
+		<div id = "sub">
+			<input type="text" name="subject" id = "subfield">
+		</div>
+		
+		<div id = "text">
+			<input type="text" name="body" id = "textfield">
+		</div>
+		
+		<div id = "post">
+			<input type="submit" value = "Post" id = "postfield">	
+		</div>
+		
+	</form>	
+</body>

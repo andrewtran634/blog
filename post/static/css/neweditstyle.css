@@ -1,0 +1,16 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: Lato;
+}
+
+#act {
+	color: rgb(25, 117, 117);
+	font-size: 40px;
+}
+form div {
+	display: block;
+}

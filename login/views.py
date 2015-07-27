@@ -25,8 +25,12 @@ def lattempt(request):
 		if attempt.is_valid():
 			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
 			if user is not None:
-				login(request, user)
-				return redirect('post:main', args=(user,))
+				if user.is_active:
+					return redirect('post:main', args=(user,))
+				else:
+					login(request, user)
+					user.is_active = True
+					return redirect('post:main', args=(user,))
 			else:
 				redirect(reverse('login:lerror'))
 		else:
@@ -76,6 +80,7 @@ def done(request, username):
 	u = get_object_or_404(User, username=username)
 	auth.logout(request)
 	u.is_authenticated = False
+	u.is_active = False
 	u.save()
 	return redirect(reverse('login:index'))
 

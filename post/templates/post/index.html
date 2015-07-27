@@ -10,7 +10,7 @@
 		<div id = "logo">
 			<!--<img src="post.svg">-->
 		</div>	
-		{% if user.is_authenticated %}
+		{% if user.is_authenticated and user.is_active %}
 		<div id = "transfer">
 			<div id = "new">
 				<a href = "{% url 'post:new' user.username %}">new</a>

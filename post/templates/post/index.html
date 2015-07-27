@@ -4,10 +4,11 @@
 	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 </head>
 
+<body>
 {% if logged %}
 	<div id = "nav">
 		<div id = "logo">
-			<img src="post.svg">
+			<!--<img src="post.svg">-->
 		</div>	
 		{% if user.is_authenticated %}
 		<div id = "transfer">
@@ -29,37 +30,39 @@
 	<div id = "postlist">
 		<ul>
 		{% for post in posts %}
-		<li id = "post">
-			<div id = "meat">
-				<div id = "sub">
-					{{ post.subject }}
+			<li id = "post">
+				<div "line">
+					<div id = "sub">
+						{{ post.subject }}
+					</div>
+			
+					<div id = "date">
+						{{ post.date }}
+					</div>
 				</div>
+				<div id = "line">
+					<div id = "text">
+						{{ post.text }}
+					</div>
+				{% if logged %}
+					<div id = "formz">
+						<form action = "{% url 'post:delete' post.id %}" method='POST'>
+							{% csrf_token %}
+							<input type="submit" value="delete" id = "delete" class = "font">
+						</form>
 
-				<div id = "date">
-					{{ post.date }}
+						<form action = "{% url 'post:edit' post.id %}" method='POST'>
+							{% csrf_token %}
+							<input type="submit" value="edit" id = "edit" class = "font">
+						</form>
+					</div>
 				</div>
-
-				<div id = "text">
-					{{ post.text }}
-				</div>
-			</div>
-			{% if logged %}
-			<div id = "formz">
-				<form action = "{% url 'post:delete' post.id %}" method='POST'>
-					{% csrf_token %}
-					<input type="submit" value="delete" id = "delete">
-				</form>
-
-				<form action = "{% url 'post:edit' post.id %}" method='POST'>
-					{% csrf_token %}
-					<input type="submit" value="edit" id = "edit">
-				</form>
-			</div>
-			{% endif %}
-		</li>
+				{% endif %}
+			</li>
 		{% endfor %}
 		</ul>
 	{% else %}
 		<p>No User lol made.</p>
 	{% endif %}
 	</div>
+</body>

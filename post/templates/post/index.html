@@ -5,12 +5,11 @@
 </head>
 
 <body>
-{% if logged %}
 	<div id = "nav">
 		<div id = "logo">
 			<!--<img src="post.svg">-->
 		</div>	
-		{% if user.is_authenticated and user.is_active %}
+		{% if logged %}
 		<div id = "transfer">
 			<div id = "new">
 				<a href = "{% url 'post:new' user.username %}">new</a>
@@ -62,8 +61,5 @@
 			</li>
 		{% endfor %}
 		</ul>
-	{% else %}
-		<p>No User lol made.</p>
-	{% endif %}
 	</div>
 </body>

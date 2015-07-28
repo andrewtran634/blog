@@ -25,12 +25,10 @@ def lattempt(request):
 		#user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user:
-			if user.is_active:
-				return redirect(reverse('post:main', args=(user.username,)))
-			else:
-				login(request, user)
-				user.is_active = True
-				return redirect(reverse('post:main', args=(user.username,)))
+			login(request, user)
+			user.is_active = True
+			user.save()
+			return redirect(reverse('post:main', args=(user.username,)))
 		else:
 			return redirect(reverse('login:lerror'))
 			#"Not all fields used"

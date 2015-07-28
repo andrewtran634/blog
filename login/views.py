@@ -21,21 +21,22 @@ def go(request, user_id):
 	return render(request, 'login/attempt.html', {'name' : u.username})
 def lattempt(request):
 	if request.method == 'POST':
-		attempt = LoginForm(request.POST)
-		if attempt.is_valid():
-			user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
-			if user is not None:
-				if user.is_active:
-					return redirect('post:main', args=(user,))
-				else:
-					login(request, user)
-					user.is_active = True
-					return redirect('post:main', args=(user,))
+		attempt = LoginForm(data=request.POST)
+		#user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
+		user = authenticate(username=request.POST['username'], password=request.POST['password'])
+		if user:
+			if user.is_active:
+				return redirect(reverse('post:main', args=(user.username,)))
 			else:
-				redirect(reverse('login:lerror'))
+				login(request, user)
+				user.is_active = True
+				return redirect(reverse('post:main', args=(user.username,)))
 		else:
+			return redirect(reverse('login:lerror'))
 			#"Not all fields used"
-			return redirect('login:lerror')
+			return render(request, 'login/attempt.html', {'attempt' : attempt.errors})
+
+			#return redirect('login:rerror')
 
 def rattempt(request):
 	if request.method == 'POST':

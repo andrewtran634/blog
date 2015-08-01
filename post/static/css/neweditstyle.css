@@ -3,12 +3,18 @@
 	padding: 0;
 }
 
+h1 {
+	text-align: center;
+	font-size: 2em;
+}
+
 body {
 	font-family: Lato;
 	background-color: rgb(245, 245, 190);
+	text-align: center;
 }
 body div {
-	padding: 5$;
+	padding: 5px;
 }
 
 #act {
@@ -22,20 +28,25 @@ form div {
 
 #subfield {
 	height: 10%;
-	width: 50%;
+	width: 70%;
 	border: none;
 	background-color: rgb(241, 246, 246);
+	font-size: 2em;
 }
 #textfield {
 	border: none;
 	height: 60%;
-	width: 50%;
+	width: 70%;
+	font-size: 1.1em;
 	background-color: rgb(241, 246, 246);
+	font-family: Lato;
 }
 #postfield {
 	background-color: rgb(222, 205, 189);
 	border: none;
-	color: rgb(25, 117, 117;
+	color: rgb(25, 117, 117);
+	border-radius: 4px;	
+	padding: 10px;
 }
 .font {
 	color: rgb(25, 117, 117);
@@ -48,4 +59,14 @@ input {
 	cursor: pointer;
 	margin: 7px;
 	padding: 4px;
+}
+#center {
+	width 500px;
+	clear: both;
+}
+#center input {
+	clear: both;
+}
+textarea {
+	resize: none;
 }

@@ -1,43 +1,38 @@
-<h1>Welcome!</h1>
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static "css/logstyle.css" %}">
+	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+</head>
 
+<div>
+	<h1>Post</h1>
+</div>
+
+<div>
+	<h3>a blogging app</h3>
+	<h3>just text at the moment</h3>
+</div>
 {% block error %}
 {% endblock %}
 
-{% if user_list %}
-    <ul>
-    {% for user in user_list %}
-	<li>
-		<form action = "{% url 'login:go' user.id %}" method="GET">
-			<input type="submit"/> {{user}}
-		</form>
-	</li>
-    {% endfor %}
-    </ul>
-{% endif %}
-
 {% block forms %}
-	{% if log %}
-		{% if badlog %}
-			{{ badlog }}
-		{% endif %}
-		<form action = "{% url 'login:lattempt' %}" method="POST">
-			{% csrf_token %}
-			{{ log }}
-			<input type = "submit" value = "login">		
-		</form>
-
-	{% endif %}
-	<br>
-	<br>
-	<br>
-	{% if reg %}
-		{% if badreg %}
-			{{ badreg }}
-		{% endif %}
-		<form action = "{% url 'login:rattempt' %}" method="POST">
-			{% csrf_token %}
-			{{ reg }}
-			<input type="submit" value="register">
-		</form>
-	{% endif %}
+	<div id = "center">
+		<div id = "log">
+			<form action = "{% url 'login:lattempt' %}" method="POST" id = "lattempt">
+				{% csrf_token %}
+				{{ log }}
+				<input type = "submit" value = "login">		
+			</form>
+			<div id = "show">
+				<p>register new user</p>
+			</div>	
+		</div>
+		<div id = "reg">	
+			<form action = "{% url 'login:rattempt' %}" method="POST" id = "rattempt">
+				{% csrf_token %}
+				{{ reg }}
+				<input type="submit" value="register" id = "sub">
+			</form>
+		</div>
+	</div>	
 {% endblock %}

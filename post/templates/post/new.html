@@ -13,18 +13,18 @@
 	
 	<form action="{% url 'post:submit' user.username %}" method="POST">
 	{% csrf_token %}
-		
-		<div id = "sub">
-			<input type="text" name="subject" id = "subfield">
+		<div id = "center">
+			<div id = "sub">
+				<input type="text" name="subject" id = "subfield" placeholder = "Subject">
+			</div>
+			
+			<div id = "text">
+				<textarea type="textarea" name="body" id = "textfield" placeholder = "Thoughts..."></textarea>
+			</div>
+			
+			<div id = "post">
+				<input type="submit" value = "Post" id = "postfield" class = "font">	
+			</div>
 		</div>
-		
-		<div id = "text">
-			<input type="text" name="body" id = "textfield">
-		</div>
-		
-		<div id = "post">
-			<input type="submit" value = "Post" id = "postfield" class = "font">	
-		</div>
-		
 	</form>	
 </body>

@@ -14,7 +14,7 @@
 	<form action ="{% url 'post:editsubmit' post.id %}" method="POST">
 		{% csrf_token %}
 		<div id = "text">
-			<input type="text" value="{{post.text}}" name="body" id = "textfield">
+			<textarea type="text" value="{{post.text}}" name="body" id = "textfield">{{ post.text }}</textarea>
 		</div>
 		
 		<div id = "post">

@@ -25,7 +25,7 @@ def lattempt(request):
 		#user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user:
-			login(request, user)
+			auth.login(request, user)
 			user.is_active = True
 			user.save()
 			return redirect(reverse('post:main', args=(user.username,)))
@@ -49,10 +49,10 @@ def rattempt(request):
 				#new_user.save()
 				new_user.set_password(new_user.password)
 				new_user.save()
-				check = authenticate(username=new_user.username, password=new_user.password)
+				check = auth.authenticate(username=new_user.username, password=new_user.password)
 				if check is not None:
 					if check.is_active:
-						login(request, check)
+						auth.login(request, check)
 				return redirect(reverse('post:main', args=(new_user,)))
 		#else:
 		#	return redirect(reverse('login:aerror'))

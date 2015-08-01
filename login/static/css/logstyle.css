@@ -1,0 +1,55 @@
+body {
+	text-align: center;
+	background-color: rgb(241, 246, 246);
+	color: rgb(184, 160, 138)
+}
+h1 {
+	font-family: Lato;
+	font-size: 2em;
+}
+h3 {
+	font-size: 1em;
+	font-family: Lato;
+}
+p {
+	font-size: 1.1em;
+	font-family: Lato;
+}
+form {
+	font-size: 1.1em;
+	font-family: Lato;
+}
+input {
+	display: block;
+	margin-bottom: 2%;
+}
+span {
+	display: none;
+}
+#reg {
+	display: none;
+	background-color: rgb(245, 245, 190);
+}
+#log {
+	background-color: rgb(245, 245, 190);
+}
+#lattempt {
+	border-radius: 4px;
+}
+#rattempt {
+	border-radius: 4px;
+}
+#center {
+	width 500px;
+	clear: both;
+}
+#center input {
+	clear: both;
+}
+#sub {
+	border-radius: 4px;
+    background-color: rgb(204, 178, 153);
+    box-shadow: none;
+    font-family: Lato;
+    border: none;
+}

@@ -4,7 +4,7 @@ body {
 	color: rgb(175, 147, 120);
 }
 h1 {
-	font-family: Lato;
+	font-family: Raleway;
 	font-size: 2em;
 }
 h3 {
@@ -18,6 +18,8 @@ p {
 form {
 	font-size: 1.1em;
 	font-family: Lato;
+	margin: 0 auto;
+	width: 500px;
 }
 input {
 	display: block;
@@ -58,5 +60,11 @@ span {
 	cursor: pointer;
 }
 #show:hover {
+
+}
+#show2 {
+	cursor: pointer;
+}
+#show2:hover {
 
 }

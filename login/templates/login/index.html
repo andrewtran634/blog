@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <head>
 	<link rel="stylesheet" type="text/css" href="{% static "css/logstyle.css" %}">
-	<link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
 	<script type="text/javascript">
@@ -9,7 +9,13 @@
 			$('#reg').hide();
 
 			$('#show').click(function() {
+				$('#log').hide();
 				$('#reg').fadeIn(1000);
+			});
+
+			$('#show2').click(function() {
+				$('#reg').hide();
+				$('#log').fadeIn(1000);
 			});
 		});
 	</script>
@@ -48,6 +54,9 @@
 				{{ reg }}
 				<input type="submit" value="register" id = "sub">
 			</form>
+			<div id = "show2">
+				<p>login existing user</p>
+			</div>
 		</div>
 	</div>	
 {% endblock %}

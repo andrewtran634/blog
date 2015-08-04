@@ -9,31 +9,32 @@ h1 {
 }
 h3 {
 	font-size: 1em;
-	font-family: Lato;
+	font-family: Raleway;
 }
 p {
 	font-size: 1.1em;
-	font-family: Lato;
+	font-family: Raleway;
 }
 form {
 	font-size: 1.1em;
-	font-family: Lato;
+	padding: 7%;
+	font-family: Raleway;
 	margin: 0 auto;
-	width: 500px;
+	width: 15%;
+	background-color: rgb(245, 245, 190);
 }
 input {
 	display: block;
 	margin-bottom: 2%;
+	margin:	0 auto;
 }
 span {
 	display: none;
 }
 #reg {
-	background-color: rgb(245, 245, 190);
 	border-radius: 5px
 }
 #log {
-	background-color: rgb(245, 245, 190);
 	border-radius: 5px;
 }
 #lattempt {

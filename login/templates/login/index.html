@@ -42,7 +42,9 @@
 			<form action = "{% url 'login:lattempt' %}" method="POST" id = "lattempt">
 				{% csrf_token %}
 				{{ log }}
-				<input type = "submit" value = "login">		
+				<div id = "field">
+					<input type = "submit" value = "login">		
+				</div>	
 			</form>
 			<div id = "show">
 				<p>register new user</p>
@@ -52,7 +54,9 @@
 			<form action = "{% url 'login:rattempt' %}" method="POST" id = "rattempt">
 				{% csrf_token %}
 				{{ reg }}
-				<input type="submit" value="register" id = "sub">
+				<div id = "field">
+					<input type="submit" value="register" id = "sub">
+				</div>
 			</form>
 			<div id = "show2">
 				<p>login existing user</p>

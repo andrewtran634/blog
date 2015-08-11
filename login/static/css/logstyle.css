@@ -28,6 +28,7 @@ input {
 	margin-bottom: 2%;
 	margin:	0 auto;
 	margin-top: 3%;
+	width: 100%;
 }
 span {
 	display: none;
@@ -69,4 +70,10 @@ span {
 }
 #show2:hover {
 
+}
+#login {
+	font-family: Raleway;
+	border:none;
+	color:rgb(175, 147, 120);
+	background-color: rgb(241, 246, 246);
 }

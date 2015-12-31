@@ -36,6 +36,10 @@
 {% block error %}
 {% endblock %}
 
+{% for message in messages %}
+	<h1> {{ message }} </h1>
+{% endfor %}
+
 {% block forms %}
 	<div id = "center">
 		<div id = "log">

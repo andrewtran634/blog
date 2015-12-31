@@ -18,7 +18,10 @@ def main(request, username):
 	p = u.post_set.all().order_by('-id')
 	#p = p.order_by('date')
 	if u.is_authenticated() and u.is_active:
-		return render(request, 'post/index.html', {'user' : u, 'posts' : p, 'logged' : 'yes'})
+		if 'username' in request.session and request.session['username'] == u.username:
+			return render(request, 'post/index.html', {'user' : u, 'posts' : p, 'logged' : 'yes'})
+		else:
+			return render(request, 'post/index.html', {'user' : u, 'posts' : p})
 	else :
 		return render(request, 'post/index.html', {'user' : u, 'posts' : p})
 

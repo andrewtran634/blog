@@ -4,7 +4,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.contrib.auth import logout, login, authenticate
-from django.contrib import auth
+from django.contrib import *
 from .models import User
 from .forms import LoginForm, RegForm
 from django import forms
@@ -13,7 +13,13 @@ def index(request):
 	user_list = User.objects.all()
 	log = LoginForm()
 	reg = RegForm()
-	return render(request, 'login/index.html', {'log' : log, 'reg' : reg}) 
+	if 'username' in request.session:
+		print request.session['username']
+	if 'username' not in request.session:
+		return render(request, 'login/index.html', {'log' : log, 'reg' : reg}) 
+	else:
+		username = request.session['username']
+		return redirect(reverse('post:main', args=(username,)))
 
 def go(request, user_id):
 	u = get_object_or_404(User, pk=user_id)
@@ -25,14 +31,17 @@ def lattempt(request):
 		#user = authenticate(username=attempt.cleaned_data['username'], password=attempt.cleaned_data['password'])
 		user = authenticate(username=request.POST['username'], password=request.POST['password'])
 		if user:
+			request.session['username'] = request.POST['username']
 			auth.login(request, user)
 			user.is_active = True
 			user.save()
 			return redirect(reverse('post:main', args=(user.username,)))
 		else:
-			return redirect(reverse('login:lerror'))
+			messages.error(request, 'No user with those credentials')
+			return redirect(reverse('login:index'))
+			#return redirect(reverse('login:lerror'))
 			#"Not all fields used"
-			return render(request, 'login/attempt.html', {'attempt' : attempt.errors})
+			#return render(request, 'login/attempt.html', {'attempt' : attempt.errors})
 
 			#return redirect('login:rerror')
 
@@ -40,8 +49,18 @@ def rattempt(request):
 	if request.method == 'POST':
 		attempt = RegForm(request.POST)
 				#check passwords match
+		try:
+			taken = User.objects.get(username=request.POST['username'])
+			messages.error(request, 'Username taken')
+			return redirect(reverse('login:index'))
+		except:
+			print 'user creation success'
+			#messages.error(request, 'Username taken')
+			#return redirect(reverse('login:index'))
+
 		if request.POST['password'] != request.POST['password2']:
-			return redirect(reverse('login:rerror'))
+			messages.error(request, 'Passwords did not match')
+			return redirect(reverse('login:index'))
 		else:
 			if attempt.is_valid():
 			#new_user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
@@ -53,49 +72,14 @@ def rattempt(request):
 				if check is not None:
 					if check.is_active:
 						auth.login(request, check)
+						request.session['username'] = new_user.username
 				return redirect(reverse('post:main', args=(new_user,)))
-		#else:
-		#	return redirect(reverse('login:aerror'))
-"""
-	if request.method == 'POST':
-		attempt = RegForm(request.POST)
-		if attempt.is_valid():
-			test = User.objects.get(user_name.cleaned_data['username'])
-			if User.DoesNotExist:
-				#check passwords match
-				if attempt.cleaned_data['password'] != attempt.cleand_data['password2']:
-					return redirect(reverse('login:rerror'))
-				else:
-					new_user = User(username=attempt.cleand_data['username'],password=attempt.cleand_data['password'])
-					new_user.save()
-					return redirect(reverse('post:main', args=(new_user,)))
-			else:
-				return redirect(reverse('login:aerror'))
-		else:
-			return redirect(reverse('login:aerror'))"""
-
 #def register(request):
 def done(request, username):
 	u = get_object_or_404(User, username=username)
 	auth.logout(request)
 	u.is_authenticated = False
-	u.is_active = False
+	#u.is_active = False
 	u.save()
+	del request.session['username']
 	return redirect(reverse('login:index'))
-
-def lerror(request):
-	log = LoginForm()
-	reg = RegForm()
-	return render(request, 'login/lerror.html', {'log' : log, 'reg' : reg})
-def rerror(request):
-	log = LoginForm()
-	reg = RegForm()
-	return render(request, 'login/rerror.html', {'log' : log, 'reg' : reg})
-def aerror(request):
-	log = LoginForm()
-	reg = RegForm()
-	return render(request, 'login/aerror.html', {'log' : log, 'reg' : reg})
-
-
-
-	#return render(request, '/post/', {})

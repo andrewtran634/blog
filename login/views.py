@@ -81,5 +81,6 @@ def done(request, username):
 	u.is_authenticated = False
 	#u.is_active = False
 	u.save()
-	del request.session['username']
+	if 'username' in request.session:
+		del request.session['username']
 	return redirect(reverse('login:index'))

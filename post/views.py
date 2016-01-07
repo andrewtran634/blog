@@ -17,7 +17,7 @@ def main(request, username):
 	u = get_object_or_404(User, username=username)
 	p = u.post_set.all().order_by('-id')
 	#p = p.order_by('date')
-	if u.is_authenticated() and u.is_active:
+	if u.is_authenticated():
 		if 'username' in request.session and request.session['username'] == u.username:
 			return render(request, 'post/index.html', {'user' : u, 'posts' : p, 'logged' : 'yes'})
 		else:

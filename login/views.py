@@ -35,15 +35,13 @@ def lattempt(request):
 			auth.login(request, user)
 			user.is_active = True
 			user.save()
+			print 'yaaayy'
+			print request.POST['password']
+
 			return redirect(reverse('post:main', args=(user.username,)))
 		else:
 			messages.error(request, 'No user with those credentials')
 			return redirect(reverse('login:index'))
-			#return redirect(reverse('login:lerror'))
-			#"Not all fields used"
-			#return render(request, 'login/attempt.html', {'attempt' : attempt.errors})
-
-			#return redirect('login:rerror')
 
 def rattempt(request):
 	if request.method == 'POST':
@@ -54,25 +52,26 @@ def rattempt(request):
 			messages.error(request, 'Username taken')
 			return redirect(reverse('login:index'))
 		except:
-			print 'user creation success'
-			#messages.error(request, 'Username taken')
-			#return redirect(reverse('login:index'))
+			print 'user is unique'
+
 
 		if request.POST['password'] != request.POST['password2']:
 			messages.error(request, 'Passwords did not match')
 			return redirect(reverse('login:index'))
 		else:
 			if attempt.is_valid():
-			#new_user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
-				new_user = attempt.save()
+				new_user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'])
+				#new_user = attempt.save()
 				#new_user.save()
-				new_user.set_password(new_user.password)
+				#new_user.set_password(new_user.password)
 				new_user.save()
-				check = auth.authenticate(username=new_user.username, password=new_user.password)
-				if check is not None:
-					if check.is_active:
-						auth.login(request, check)
-						request.session['username'] = new_user.username
+				check = auth.authenticate(username=new_user.username, password=request.POST['password'])
+				print new_user.username
+				print new_user.password
+				#if check is not None:
+				#	if check.is_active:
+				auth.login(request, check)
+				request.session['username'] = new_user.username
 				return redirect(reverse('post:main', args=(new_user,)))
 #def register(request):
 def done(request, username):
